@@ -11,9 +11,14 @@ const connectToDatabase = async () => {
   try {
     console.log("Using DNS Servers:", dns.getServers());
 
-    const conn = await mongoose.connect(
-      "mongodb+srv://HACK:giDCgxy2d3HiO7IE@hackethic.ozjloba.mongodb.net/blog?retryWrites=true&w=majority&appName=HACKETHIC"
-    );
+    const mongoUri = process.env.MONGODB_URI;
+    if (!mongoUri) {
+      throw new Error("MONGODB_URI environment variable is not set");
+    }
+
+    const conn = await mongoose.connect(mongoUri, {
+      // optional mongoose options can be added here
+    });
 
     console.log(
       `✅ MongoDB Connected: ${conn.connection.host}`

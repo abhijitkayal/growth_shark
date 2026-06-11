@@ -23,31 +23,25 @@ router.post("/image", upload.single("image"), async (req, res) => {
       return res.status(500).json({ error: "Cloudinary configuration missing" });
     }
 
-    // Upload the saved file to Cloudinary. Using the file path works with the
-    // default Multer disk storage.
+    // With memory storage `req.file` contains a buffer instead of a path.
+    // Cloudinary can accept a Base64 data‑URI, so we construct one from the
+    // buffer and upload that.
     let imageUrl;
     try {
-      const result = await cloudinary.uploader.upload(req.file.path, {
+      const dataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+      const result = await cloudinary.uploader.upload(dataUri, {
         folder: "uploads",
       });
       imageUrl = result.secure_url;
     } catch (cloudErr) {
-      console.warn("Cloudinary upload failed, falling back to local file:", cloudErr.message);
-      // Serve the file via the static /uploads route defined in index.js
-      imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+      console.warn("Cloudinary upload failed:", cloudErr.message);
+      // As a fallback, we could serve the file from a temporary location, but
+      // in a serverless environment we cannot reliably write to disk. Return a
+      // clear error so the client knows the upload failed.
+      return res.status(500).json({ error: "Image upload failed" });
     }
 
-    // Optionally delete the local file after successful upload to keep the
-    // uploads folder tidy. If we fell back to local serving, keep the file.
-    if (imageUrl && imageUrl.startsWith("https")) {
-      try {
-        await import("fs").then((fs) => fs.promises.unlink(req.file.path));
-      } catch (cleanupErr) {
-        console.warn("Failed to delete temporary upload file:", cleanupErr);
-      }
-    }
-
-    // Respond with the URL (Cloudinary or local) that the frontend can store.
+    // Respond with the Cloudinary URL.
     res.json({ url: imageUrl });
   } catch (err) {
     console.error("UPLOAD IMAGE ERROR:", err);
