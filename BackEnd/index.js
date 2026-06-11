@@ -11,7 +11,7 @@ import connectToDatabase from "./config/db.js";
 import blogRoute from "./api/blogRoutes.js";
 import pageRoute from "./api/portfolioRoutes.js";
 import uploadRoutes from "./api/upload.js";
-
+import authRoutes from "./api/auth.js";
 // import portfolioRoute from "./api/Protfolio.js"
 // Load env variables
 dotenv.config();
@@ -71,6 +71,7 @@ app.use("/api/portfolio", pageRoute);
 
 
 app.use("/api/upload", uploadRoutes);
+app.use("/api/auth", authRoutes);
 // app.use("/api/portfolio",portfolioRoute)
 console.log("Route registered: /api/mail ✅");
 console.log("Route registered: /api/blogs ✅");

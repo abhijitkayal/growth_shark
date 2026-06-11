@@ -1,29 +1,15 @@
-// const express = require("express");
+
 import express from "express";
-// Import the Portfolio model correctly; use the same name for clarity
-import Portfolio from "../models/Portfolio.js";
+
+import Portfolio from "../models/portfolio.js";
 import cloudinary from "../config/Cloudinary.js";
 
 const router = express.Router();
 
-/**
- * Create a portfolio page.
- *
- * The client can send an `image` field that is either:
- *   1. A direct URL (already uploaded to Cloudinary or elsewhere).
- *   2. A Base64‑encoded data URI (e.g. "data:image/png;base64,...").
- *
- * If a Base64 data URI is received we upload it to Cloudinary on the server
- * and replace the field with the secure URL returned by Cloudinary. This removes
- * the previous Multer‑based local file handling.
- */
+
 router.post("/", async (req, res) => {
   try {
-    // The client sends a `featuredImage` field (URL) after uploading via /api/upload/image.
-    // Previously the code expected an `image` field and attempted to upload a Base64
-    // payload to Cloudinary. Since the frontend now provides the URL directly, we simply
-    // use the `featuredImage` value. For backward compatibility we also handle an `image`
-    // field that may contain a Base64 data URI.
+    
     const { featuredImage, image, ...rest } = req.body;
 
     let finalImage = featuredImage;

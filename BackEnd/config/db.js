@@ -11,7 +11,7 @@ const connectToDatabase = async () => {
   try {
     console.log("Using DNS Servers:", dns.getServers());
 
-    const mongoUri = process.env.MONGODB_URI;
+    const mongoUri = "mongodb+srv://HACK:giDCgxy2d3HiO7IE@hackethic.ozjloba.mongodb.net/blog?retryWrites=true&w=majority&appName=HACKETHIC";
     if (!mongoUri) {
       throw new Error("MONGODB_URI environment variable is not set");
     }
