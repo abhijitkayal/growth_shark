@@ -184,6 +184,8 @@ import AddPortfolio from "./pages/AddPortfolio";
 import PortfolioDetails from "./pages/portfolioDetails";
 import ShowPortfolio from "./pages/showPortfolio";
 import ShowBlog from "./pages/showBlog";
+import Login from "./pages/Login";
+import ProtectedRoute from "./pages/ProtectedRoutes";
 
 
 // Canonical Helmet
@@ -255,15 +257,16 @@ const hideFooter = location.pathname.startsWith("/dashboard");
         {/* Blog */}
         <Route path="/blogs" element={<Blogs/>} />
         {/* Dashboard layout with sidebar – child routes render inside the <Outlet/> */}
-        <Route path="/dashboard" element={<Page />}> 
+        <Route path="/dashboard" element={<ProtectedRoute><Page /></ProtectedRoute>}> 
           {/* Blog routes */}
-          <Route path="blogs/create" element={<AddBlog />} />
-          <Route path="blogs" element={<Blogs/>} />
+          <Route path="blogs/create" element={<ProtectedRoute><AddBlog /></ProtectedRoute>} />
+          <Route path="blogs" element={<ProtectedRoute><Blogs/></ProtectedRoute>} />
           {/* Add Portfolio page – will be displayed beside the sidebar */}
-          <Route path="portfolio" element={<AddPortfolio />} />
-          <Route path="show-portfolio" element={<ShowPortfolio />} />
-          <Route path="show-blog" element={<ShowBlog />} />
+          <Route path="portfolio" element={<ProtectedRoute><AddPortfolio /></ProtectedRoute>} />
+          <Route path="show-portfolio" element={<ProtectedRoute><ShowPortfolio /></ProtectedRoute>} />
+          <Route path="show-blog" element={<ProtectedRoute><ShowBlog /></ProtectedRoute>} />
         </Route>
+        <Route path="/login" element={<Login />} />
 
         {/* Individual blog post */}
         <Route path="/blog/:permalink" element={<BlogDetails />} />

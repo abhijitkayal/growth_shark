@@ -393,16 +393,13 @@ export default function CreatePage() {
             className="block w-full border rounded-lg p-3"
             onChange={async (e) => {
               const file = e.target.files[0];
-
               if (!file) return;
-
-              const imageUrl =
-                await uploadImage(file);
-
-              setForm({
-                ...form,
+              const imageUrl = await uploadImage(file);
+              // Use functional update to avoid stale closure issues
+              setForm((prev) => ({
+                ...prev,
                 featuredImage: imageUrl,
-              });
+              }));
             }}
           />
 
@@ -483,11 +480,8 @@ export default function CreatePage() {
                   const imageUrl =
                     await uploadImage(file);
 
-                  updateSection(
-                    index,
-                    "image",
-                    imageUrl
-                  );
+                    // Update the specific section's image URL
+                    updateSection(index, "image", imageUrl);
                 }}
               />
 
