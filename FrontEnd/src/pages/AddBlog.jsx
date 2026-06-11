@@ -32,7 +32,7 @@ export default function AddBlog() {
     });
 
     try {
-      await axios.post("https://growth-shark-6uib.onrender.com/api/blogs/create", data, {
+      await axios.post("http://localhost:5000/api/blogs/create", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -99,11 +99,11 @@ export default function AddBlog() {
             onChange={(e) => setForm({ ...form, permalink: e.target.value })}
           />
 
-          <textarea
+          {/* <textarea
             placeholder="Schema JSON"
             className="w-full border border-gray-300 rounded-lg p-3 focus:ouline-none focus:ring-2 focus:ring-blue-500"
             onChange={(e) => setForm({ ...form, schema: e.target.value })}
-          />
+          /> */}
 
           <button
             type="submit"

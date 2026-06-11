@@ -35,11 +35,11 @@ export default function Pages() {
     <div className="min-h-screen bg-gradient-to-r from-black via-[#0b223f] to-[#06263f] py-20 px-4 ">
       <div className="max-w-7xl mx-auto">
 
-        <h1 className="text-4xl font-bold text-center text-white mb-12">
+        <h1 className="text-4xl font-bold text-center text-white mt-10">
           Portfolio
         </h1>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-40">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
        
 
 {pages.map((page) => (

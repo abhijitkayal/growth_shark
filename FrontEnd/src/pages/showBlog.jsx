@@ -43,12 +43,16 @@ export default function Blogs() {
           {blog.image && (
             <div className="overflow-hidden rounded-xl ">
               <img
-                src={`https://growth-shark-6uib.onrender.com/${blog.image.replace("\\", "/")}`}
+                // If the stored image is already a full URL (e.g., Cloudinary), use it directly.
+                // Otherwise, construct the URL relative to the backend server.
+                src={
+                  blog.image.startsWith("http")
+                    ? blog.image
+                    : `https://growth-shark-6uib.onrender.com/${blog.image.replace("\\", "/")}`
+                }
                 alt={blog.title}
-               className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-105"
               />
-
-              {/* <div className="absolute inset-0 "></div> */}
             </div>
           )}
 

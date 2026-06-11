@@ -1,6 +1,7 @@
 import express from "express";
 import Blog from "../models/Blog.js";
 import upload from "../middleware/upload.js";
+import cloudinary from "../config/Cloudinary.js";
 
 const router = express.Router();
 
@@ -32,10 +33,29 @@ router.post("/create", upload.single("image"), async (req, res) => {
       }
     }
 
+    // ------------------------------------------------------------
+    // Handle image upload
+    // ------------------------------------------------------------
+    let imageUrl = "";
+    if (req.file) {
+      try {
+        // Convert buffer to data URI for Cloudinary upload
+        const dataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+        const result = await cloudinary.uploader.upload(dataUri, {
+          folder: "uploads",
+        });
+        imageUrl = result.secure_url;
+      } catch (uploadErr) {
+        console.warn("Cloudinary upload failed in blog create:", uploadErr.message);
+        // Continue without image rather than failing the whole request
+        imageUrl = "";
+      }
+    }
+
     const blog = await Blog.create({
       title,
       content,
-      image: req.file ? req.file.path : "",
+      image: imageUrl,
       metaTitle,
       metaDescription,
       keywords: keywords ? keywords.split(",").map((k) => k.trim()) : [],
