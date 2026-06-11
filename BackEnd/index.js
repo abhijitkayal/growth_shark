@@ -26,22 +26,11 @@ console.log("FRONTEND_URL:", process.env.FRONTEND_URL ? "Loaded ✅" : "Missing 
 const app = express();
 
 
-// Determine allowed origins
-const allowedOrigins = [
-  process.env.FRONTEND_URL, // Production frontend
-  "http://localhost:5173"   // Local development
-].filter(Boolean); // Remove undefined/null
-
-// CORS configuration
+// CORS configuration – allow all origins (both production and development)
+// Using `origin: true` reflects the request origin in the Access-Control-Allow-Origin header.
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: true,
     methods: ["GET", "POST", "OPTIONS"], // Explicitly allow common methods
     allowedHeaders: ["Content-Type", "Authorization"],
   })
