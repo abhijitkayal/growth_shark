@@ -86,11 +86,19 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Something went wrong!", details: err.message });
 });
 
-// Export for Vercel (serverless)
+// Export for Vercel (serverless) – Vercel will ignore the listener if present
 export default app;
 
-// For local development only (commented out in production)
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
+/**
+ * Render (and other generic cloud providers) expect the process to bind to a
+ * TCP port. In production environments like Render, `process.env.NODE_ENV`
+ * is set to "production", so the previous conditional prevented the server from
+ * listening, resulting in the "No open ports detected" error.
+ *
+ * We now always start the HTTP server. Vercel will still work because it
+ * prefers the exported handler; the extra `listen` call is ignored in the
+ * serverless environment. This makes the same entry point usable for both
+ * Render and Vercel.
+ */
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

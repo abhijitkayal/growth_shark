@@ -1,7 +1,10 @@
 
 import express from "express";
 
-import Portfolio from "../models/portfolio.js";
+// NOTE: Linux/Render file system is case‑sensitive. The model file is named
+// `Portfolio.js` (capital P). Using the wrong case causes `ERR_MODULE_NOT_FOUND`
+// in production even though it works locally on Windows.
+import Portfolio from "../models/Portfolio.js";
 import cloudinary from "../config/Cloudinary.js";
 
 const router = express.Router();

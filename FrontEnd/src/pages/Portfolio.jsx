@@ -12,7 +12,7 @@ export default function Pages() {
   const fetchPages = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/portfolio"
+        "https://growth-shark-backend.onrender.com/api/portfolio"
       );
 
       setPages(res.data.pages || []);
