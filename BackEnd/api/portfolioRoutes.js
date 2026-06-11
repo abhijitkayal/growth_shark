@@ -1,7 +1,7 @@
 // const express = require("express");
 import express from "express";
-// Use a project‑root‑relative import so Vercel can resolve the file correctly
-import Page from "../models/Portfolio.js";
+// Import the Portfolio model correctly; use the same name for clarity
+import Portfolio from "../models/Portfolio.js";
 import cloudinary from "../config/Cloudinary.js";
 
 const router = express.Router();
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
     }
 
     // Persist the page, storing the resolved URL in `featuredImage`.
-    const page = await Page.create({ ...rest, featuredImage: finalImage });
+    const page = await Portfolio.create({ ...rest, featuredImage: finalImage });
     res.status(201).json(page);
   } catch (error) {
     console.error("PORTFOLIO CREATE ERROR:", error);
@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
 });
 router.get("/", async (req, res) => {
   try {
-    const pages = await Page.find().sort({
+    const pages = await Portfolio.find().sort({
       createdAt: -1,
     });
 
@@ -64,7 +64,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:slug", async (req, res) => {
   try {
-    const page = await Page.findOne({
+    const page = await Portfolio.findOne({
       permalink: req.params.slug,
     });
 

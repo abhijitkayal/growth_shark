@@ -1,7 +1,9 @@
-/*
-  This file was originally placed inside the BackEnd folder and pointed to
-  "BackEnd/index.js", which results in an invalid path when Vercel builds the
-  project (the correct entry point is already defined in the root-level
-  vercel.json). Keeping this file empty (or commenting it out) prevents Vercel
-  from using the wrong configuration and eliminates the 404 errors.
-*/
+{
+	"version": 2,
+	"builds": [
+		{ "src": "index.js", "use": "@vercel/node" }
+	],
+	"rewrites": [
+		{ "source": "/(.*)", "destination": "index.js" }
+	]
+}
