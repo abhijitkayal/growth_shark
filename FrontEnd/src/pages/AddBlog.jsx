@@ -32,7 +32,7 @@ export default function AddBlog() {
     });
 
     try {
-      await axios.post("http://localhost:5000/api/blogs/create", data, {
+      await axios.post("https://growth-shark-6uib.onrender.com/api/blogs/create", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

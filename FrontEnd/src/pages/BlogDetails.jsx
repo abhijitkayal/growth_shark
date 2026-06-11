@@ -12,7 +12,7 @@ export default function BlogDetails() {
 
     axios
       .get(
-        `http://localhost:5000/api/blogs/permalink/${permalink}`
+        `https://growth-shark-6uib.onrender.com/api/blogs/permalink/${permalink}`
       )
       .then((res) => {
         setBlog(res.data.blog);
@@ -37,7 +37,7 @@ export default function BlogDetails() {
     <div className="max-w-4xl mx-auto px-4 py-10 mt-40">
       {blog.image && (
         <img
-          src={`http://localhost:5000/${blog.image.replace(
+          src={`https://growth-shark-6uib.onrender.com/${blog.image.replace(
             /\\/g,
             "/"
           )}`}

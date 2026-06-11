@@ -35,7 +35,7 @@
 //   formData.append("image", file);
 
 //   const res = await axios.post(
-//     "http://localhost:5000/api/upload/image",
+//     "https://growth-shark-6uib.onrender.com/api/upload/image",
 //     formData,
 //     {
 //       headers: {
@@ -63,7 +63,7 @@
 
 //   const savePage = async () => {
 //     await axios.post(
-//       "http://localhost:5000/api/portfolio",
+//       "https://growth-shark-6uib.onrender.com/api/portfolio",
 //       form
 //     );
 
@@ -271,7 +271,7 @@ export default function CreatePage() {
     console.log("Uploading Image:", file);
 
     const res = await axios.post(
-      "http://localhost:5000/api/upload/image",
+      "https://growth-shark-6uib.onrender.com/api/upload/image",
       formData,
       {
         headers: {
@@ -310,7 +310,7 @@ export default function CreatePage() {
   const savePage = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/portfolio",
+        "https://growth-shark-6uib.onrender.com/api/portfolio",
         form
       );
 

@@ -14,7 +14,7 @@ export default function PortfolioDetails() {
   const fetchPage = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/portfolio/${permalink}`
+        `https://growth-shark-6uib.onrender.com/api/portfolio/${permalink}`
       );
 
       // The backend returns the portfolio document directly (not wrapped in an object).
