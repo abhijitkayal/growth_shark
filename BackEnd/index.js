@@ -57,7 +57,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the "uploads" directory so that images can be accessed via URLs like
-// http://localhost:5000/uploads/<filename>. This is required for the frontend to display blog images.
+// https://growth-shark-6uib.onrender.com/uploads/<filename>. This is required for the frontend to display blog images.
 app.use("/uploads", express.static("uploads"));
 
 // Routes
