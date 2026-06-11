@@ -9,7 +9,10 @@ import aboutusRoute from "./api/aboutus.js";
 import mailRoute from "./api/mail.js";
 import connectToDatabase from "./config/db.js";
 import blogRoute from "./api/blogRoutes.js";
-import portfolioRoute from "./api/Protfolio.js"
+import pageRoute from "./api/portfolioRoutes.js";
+import uploadRoutes from "./api/upload.js";
+
+// import portfolioRoute from "./api/Protfolio.js"
 // Load env variables
 dotenv.config();
 await connectToDatabase();
@@ -53,6 +56,10 @@ app.use((err, req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files from the "uploads" directory so that images can be accessed via URLs like
+// http://localhost:5000/uploads/<filename>. This is required for the frontend to display blog images.
+app.use("/uploads", express.static("uploads"));
+
 // Routes
 app.use("/api/contact", contactRoute);
 app.use("/api/career", careerRoute);
@@ -60,7 +67,11 @@ app.use("/api/partnersubmit", partnersubmitRoute); // Use app.use for consistent
 app.use("/api/aboutus", aboutusRoute);
 app.use("/api/mail", mailRoute);
 app.use("/api/blogs", blogRoute);
-app.use("/api/portfolio",portfolioRoute)
+app.use("/api/portfolio", pageRoute);
+
+
+app.use("/api/upload", uploadRoutes);
+// app.use("/api/portfolio",portfolioRoute)
 console.log("Route registered: /api/mail ✅");
 console.log("Route registered: /api/blogs ✅");
 // Default route with health check

@@ -46,7 +46,7 @@ export default function AddBlog() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4">
+    <div className="min-h-screen  py-10 px-4">
       <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-2xl p-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Add Blog

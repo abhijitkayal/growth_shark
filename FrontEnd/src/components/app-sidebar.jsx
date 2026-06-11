@@ -14,7 +14,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ListIcon, ChartBarIcon, FolderIcon, UsersIcon, CameraIcon, FileTextIcon, Settings2Icon, CircleHelpIcon, SearchIcon, DatabaseIcon, FileChartColumnIcon, FileIcon, CommandIcon, SquarePenIcon, NotebookIcon } from "lucide-react"
+import { LayoutDashboardIcon, ListIcon, ChartBarIcon, FolderIcon, UsersIcon, CameraIcon, FileTextIcon, Settings2Icon, CircleHelpIcon, SearchIcon, DatabaseIcon, FileChartColumnIcon, FileIcon, CommandIcon, SquarePenIcon, NotebookIcon, Briefcase, Grid } from "lucide-react"
 
 const data = {
   user: {
@@ -38,12 +38,26 @@ const data = {
       ),
     },
     {
-      title: "All Post",
-      url: "/blogs",
+      title: "Add portfolio",
+      url: "/dashboard/portfolio",
       icon: (
         <NotebookIcon/>
       ),
     },
+      {
+      title: "All portfolio",
+      url: "/dashboard/show-portfolio",
+      icon: (
+        <Briefcase/>
+      ),
+    },
+    {
+    title: "All Blog",
+      url: "/dashboard/show-blog",
+      icon: (
+        <Grid/>
+      ),
+    }
    
   
   ],

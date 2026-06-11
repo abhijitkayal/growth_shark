@@ -20,6 +20,7 @@ export function NavMain({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild tooltip={item.title}>
+                {/* Open navigation links in the same tab (default behavior) */}
                 <Link to={item.url}>
                   {item.icon}
                   <span>{item.title}</span>

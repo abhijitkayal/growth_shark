@@ -3,46 +3,58 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 export default function BlogDetails() {
-  const { id } = useParams(); // ✅ now using ID
+  const { permalink } = useParams();
+
   const [blog, setBlog] = useState(null);
-  console.log("hi");
-  
 
- useEffect(() => {
-  console.log("ID:", id); // 👈 Add this first line
-  
-  if (!id) return;        // 👈 Guard against undefined
+  useEffect(() => {
+    if (!permalink) return;
 
-  axios
-    .get(`http://localhost:5000/api/blogs/${id}`)
-    .then((res) => {
-      setBlog(res.data.blog);
-    })
-    .catch((err) => {
-      console.log("API ERROR:", err.response?.data || err.message); // 👈 Better error log
-    });
-}, [id]);
+    axios
+      .get(
+        `http://localhost:5000/api/blogs/permalink/${permalink}`
+      )
+      .then((res) => {
+        setBlog(res.data.blog);
+      })
+      .catch((err) => {
+        console.log(
+          "API ERROR:",
+          err.response?.data || err.message
+        );
+      });
+  }, [permalink]);
 
-  if (!blog) return <p>Loading...</p>;
+  if (!blog) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        Loading...
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-
+    <div className="max-w-4xl mx-auto px-4 py-10 mt-40">
       {blog.image && (
         <img
-          src={`http://localhost:5000/${blog.image.replace("\\", "/")}`}
+          src={`http://localhost:5000/${blog.image.replace(
+            /\\/g,
+            "/"
+          )}`}
           alt={blog.title}
-          className="w-full h-64 object-cover rounded"
+          className="w-full h-[400px] object-cover rounded-xl"
         />
       )}
 
-      <h1 className="text-3xl font-bold mt-4">
+      <h1 className="text-4xl font-bold mt-8 mb-6">
         {blog.title}
       </h1>
 
       <div
-        className="mt-4 prose"
-        dangerouslySetInnerHTML={{ __html: blog.content }}
+        className="prose prose-lg max-w-none"
+        dangerouslySetInnerHTML={{
+          __html: blog.content,
+        }}
       />
     </div>
   );

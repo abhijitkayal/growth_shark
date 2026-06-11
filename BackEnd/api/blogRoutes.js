@@ -75,9 +75,11 @@ router.get("/", async (req, res) => {
     });
   }
 });
-router.get("/:id", async (req, res) => {
+router.get("/permalink/:permalink", async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
+    const blog = await Blog.findOne({
+      permalink: req.params.permalink,
+    });
 
     if (!blog) {
       return res.status(404).json({
@@ -91,7 +93,7 @@ router.get("/:id", async (req, res) => {
       blog,
     });
   } catch (error) {
-    console.error("GET BLOG BY ID ERROR:", error);
+    console.error("GET BLOG ERROR:", error);
 
     res.status(500).json({
       success: false,
@@ -99,6 +101,5 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
-
 
 export default router;

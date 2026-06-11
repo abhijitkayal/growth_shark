@@ -180,6 +180,11 @@ import Page from "./pages/dashboard/page";
 import Blogs from "./pages/Blog";
 import BlogDetails from "./pages/BlogDetails";
 import AddBlog from "./pages/AddBlog";
+import AddPortfolio from "./pages/AddPortfolio";
+import PortfolioDetails from "./pages/portfolioDetails";
+import ShowPortfolio from "./pages/showPortfolio";
+import ShowBlog from "./pages/showBlog";
+
 
 // Canonical Helmet
 function CanonicalHelmet() {
@@ -249,19 +254,26 @@ const hideFooter = location.pathname.startsWith("/dashboard");
         <Route path="/services/video-editing-service" element={<VideoContent />} />
         {/* Blog */}
         <Route path="/blogs" element={<Blogs/>} />
-        <Route path="/dashboard" element={<Page />}>
-  <Route
-    path="blogs/create"
-    element={<AddBlog />}
-  />
+        {/* Dashboard layout with sidebar – child routes render inside the <Outlet/> */}
+        <Route path="/dashboard" element={<Page />}> 
+          {/* Blog routes */}
+          <Route path="blogs/create" element={<AddBlog />} />
+          <Route path="blogs" element={<Blogs/>} />
+          {/* Add Portfolio page – will be displayed beside the sidebar */}
+          <Route path="portfolio" element={<AddPortfolio />} />
+          <Route path="show-portfolio" element={<ShowPortfolio />} />
+          <Route path="show-blog" element={<ShowBlog />} />
+        </Route>
 
-  <Route
-    path="blogs"
-    element={<Blogs/>}
-  />
-</Route>
-        <Route path="/blog/:id" element={<BlogDetails />} />
+        {/* Individual blog post */}
+        <Route path="/blog/:permalink" element={<BlogDetails />} />
+        {/* Portfolio details page (outside dashboard layout) */}
+        <Route
+          path="/portfolio/:permalink"
+          element={<PortfolioDetails />}
+        />
       </Routes>
+    
       
      {!hideFooter && <Footer />}
     </>
